@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version:"3.0"
+
+accounts:
+  message: "Welcome to accounts related QA APIS"
+  contactDetails:
+    name: "Loc Pham Senior"
+    email: "phamxuanloc97@outlook.com"
+  onCallSupport:
+    - 0932-445-662
+    - 84932-445-662
