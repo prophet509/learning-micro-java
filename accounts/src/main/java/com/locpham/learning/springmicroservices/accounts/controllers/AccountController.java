@@ -6,6 +6,8 @@ import com.locpham.learning.springmicroservices.accounts.constants.AccountsConst
 import com.locpham.learning.springmicroservices.accounts.dto.CustomerDto;
 import com.locpham.learning.springmicroservices.accounts.dto.ErrorResponseDto;
 import com.locpham.learning.springmicroservices.accounts.dto.ResponseDto;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,6 +17,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -32,6 +36,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 public class AccountController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+
 
     private final IAccountsService iAccountsService;
 
@@ -185,15 +192,30 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
     }
 
+    @RateLimiter(name = "getJavaVersion", fallbackMethod = "getFallbackJavaVersion")
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
     }
 
-    @GetMapping("/contact-info")
-    public ResponseEntity<AccountsContactDetailDto> getContactInfo() {
+    public ResponseEntity<String> getFallbackJavaVersion(Throwable throwable) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(accountsContactDetailDto);
+                .body("Java 17");
+    }
+    @Retry(name = "getBuildInfo",fallbackMethod = "getBuildInfoFallback")
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        logger.debug("getBuildInfo() method Invoked");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable) {
+        logger.debug("getBuildInfoFallback() method Invoked");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("0.9");
     }
 }
