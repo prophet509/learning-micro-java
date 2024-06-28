@@ -45,6 +45,19 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
@@ -79,7 +92,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>pxloc97/${project.artifactId}:s9</image>
+						<image>pxloc97/${project.artifactId}:s11</image>
 					</to>
 				</configuration>
 			</plugin>

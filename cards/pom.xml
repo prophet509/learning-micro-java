@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.1</spring-cloud.version>
+		<otelVersion>1.32.0</otelVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -67,6 +68,17 @@
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry.javaagent</groupId>
+			<artifactId>opentelemetry-javaagent</artifactId>
+			<version>${otelVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.9.9</version>
 		</dependency>
 	</dependencies>
 
@@ -127,7 +139,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>pxloc97/${project.artifactId}:s9</image>
+						<image>pxloc97/${project.artifactId}:s11</image>
 					</to>
 				</configuration>
 			</plugin>
