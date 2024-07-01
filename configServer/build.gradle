@@ -7,7 +7,7 @@ plugins {
 
 jib {
 	to {
-		image = 'pxloc97/configserver:s11'
+		image = 'pxloc97/configserver:s13'
 	}
 }
 

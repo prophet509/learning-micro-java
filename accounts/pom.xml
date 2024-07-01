@@ -82,6 +82,14 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
             <version>1.9.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -145,7 +153,7 @@
                 <version>3.4.1</version>
                 <configuration>
                     <to>
-                        <image>pxloc97/${project.artifactId}:s11</image>
+                        <image>pxloc97/${project.artifactId}:s13</image>
                     </to>
                 </configuration>
             </plugin>

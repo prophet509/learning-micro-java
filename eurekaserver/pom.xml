@@ -62,7 +62,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>pxloc97/${project.artifactId}:s11</image>
+						<image>pxloc97/${project.artifactId}:s13</image>
 					</to>
 				</configuration>
 			</plugin>
